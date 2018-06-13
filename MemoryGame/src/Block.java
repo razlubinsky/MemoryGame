@@ -24,29 +24,27 @@ public class Block extends JButton implements MouseListener,Runnable
 	{
 		return counter;
 	}
+	//check that after 8 pairs we finish the game
 	public static void addToCounter()
 	{
 		counter++;
 	}
-	
+	//add mouse listener to each block
 	public Block(int[] id)
 	{
 		this.setId(id);
 		addMouseListener(this);
 		
 	}
+	//checks that after two flips of cards its the end of the turn
 	public int getTimes() 
 	{
 		return times;
 	}
-
 	public static void setTimes(int numOfTimes) 
 	{
 		times = numOfTimes;
 	}
-
-
-
 	public int[] getId()
 	{
 		return this.id;
@@ -97,6 +95,7 @@ public class Block extends JButton implements MouseListener,Runnable
 				this.setIcon(new ImageIcon(Tile.tile_card8));
 			}
 		}
+		//when finish the game change the cards to card9
 		else
 		{
 			if(Arrays.equals(this.id, Tile.card9))
@@ -106,14 +105,10 @@ public class Block extends JButton implements MouseListener,Runnable
 		}
 	}
 
-	public void flipCards(int[] one, int[] two)
-	{
-		
-	}
-	
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{	
+		//first card is open
 		if (times == 1)
 		{
 			if (!Arrays.equals(this.getId(), Tile.card9))
@@ -124,22 +119,18 @@ public class Block extends JButton implements MouseListener,Runnable
 				times++;
 			}
 		}
+		//second card is open
 		else if (times == 2)
 		{
+			//check the player didn't click the same card or one that is already open
 			if (this != lastBlock && (!Arrays.equals(this.getId(), Tile.card9)))
 			{
 				times = 3;
 				this.render();
 				second_id = this.getId().clone();
-				
-				
+				//need another thread to do the update of the Gui
 				GuiThread thread = new GuiThread(first_id,second_id,e,lastBlock,times);
 				thread.start();
-				
-				
-				
-
-				
 			}
 		}
 	}

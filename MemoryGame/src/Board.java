@@ -50,6 +50,7 @@ public class Board extends JFrame implements Runnable
 		}
 		generateLevel();
 	}
+	//check if all the 8 pairs are open
 	public static void checkVictory()
 	{
 		if (Block.getCounter() == ((Board.getInd_x())*(Board.getInd_Y()))/2)
@@ -63,6 +64,7 @@ public class Board extends JFrame implements Runnable
 	{
 		Board.isVictory = true;
 	}
+	//open all the cards as card9
 	public static void victory()
 	{
 		for (int x=0;x<ind_x;x++)
@@ -84,7 +86,7 @@ public class Board extends JFrame implements Runnable
 	{
 		return ind_y;
 	}
-	
+	//random the cards 
 	public void shuffleDeck()
 	{
 		int cardPos = 1;
@@ -114,6 +116,7 @@ public class Board extends JFrame implements Runnable
 		new Tile(); 
 		new Thread(this).start();
 	}
+	//all cards at start are closed
 	public void generateLevel()
 	{
 		for (int x=0; x<ind_x;x++)
@@ -146,12 +149,6 @@ public class Board extends JFrame implements Runnable
 		}
 		
 	}
-    public static void main(String args[]) 
-    {
-		Board board = new Board();
-		board.start();
-        
-    }
 	public void render()
 	{
 		Graphics g = screen.getGraphics();
@@ -159,6 +156,11 @@ public class Board extends JFrame implements Runnable
 		
 		g = getGraphics();
 		g.drawImage(screen, 5, 30, size.width , size.height , 0, 0, size.width , size.height, null);
-		//g.dispose();
 	}
+    public static void main(String args[]) 
+    {
+		Board board = new Board();
+		board.start();
+        
+    }
 }
