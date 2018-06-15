@@ -26,8 +26,8 @@ public class GuiThread extends Thread
     	{
     		try 
     		{
-    			//hold for 900 milliseconds so that the player could see the cards before they change
-    			GuiThread.sleep(900);
+    			//hold for 400 milliseconds so that the player could see the cards before they change
+    			GuiThread.sleep(400);
 			} 
     		catch (InterruptedException e1) 
     		{
