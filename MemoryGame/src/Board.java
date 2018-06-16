@@ -3,7 +3,6 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.util.Arrays;
 import java.util.Random;
 import javax.swing.JFrame;
 
@@ -14,7 +13,7 @@ public class Board extends JFrame implements Runnable
 	private static int ind_x=4;
 	private static int ind_y=4;
 	
-	public int[] id = {0,0};
+	public int id = 0;
 	public static Block[][] block = new Block[ind_x][ind_y];
 	public static Image screen;
 	public static Dimension size = new Dimension(ind_x*Tile.width +10 ,ind_y*Tile.height +10);
@@ -72,7 +71,7 @@ public class Board extends JFrame implements Runnable
 			for(int y=0; y<ind_y; y++)
 			{
 				{
-					block[x][y].setId(Tile.card9);
+					block[x][y].setId(Tile.getCard(9));
 					block[x][y].render();
 				}
 			}
@@ -98,9 +97,9 @@ public class Board extends JFrame implements Runnable
 		{
 			x = rand.nextInt(4);
 			y = rand.nextInt(4);
-			if (Arrays.equals(block[x][y].getId(), Tile.blank))
+			if (block[x][y].getId() == Tile.getCard(0))
 			{
-				this.id[0]=cardPos;
+				this.id=cardPos;
 				block[x][y].setId(this.id);
 				secondCard++;
 				if (secondCard == 2)
@@ -124,10 +123,9 @@ public class Board extends JFrame implements Runnable
 			for(int y=0; y<ind_y;y++)
 			{
 				{
-					block[x][y].setId(Tile.blank);
+					block[x][y].setId(Tile.getCard(0));
 				}
 			}
-			
 		}
 	}
 	@Override
