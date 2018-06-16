@@ -13,11 +13,11 @@ public class Board extends JFrame implements Runnable
 	private static int ind_x=4;
 	private static int ind_y=4;
 	
-	public int id = 0;
-	public static Block[][] block = new Block[ind_x][ind_y];
-	public static Image screen;
-	public static Dimension size = new Dimension(ind_x*Tile.width +10 ,ind_y*Tile.height +10);
-	public static boolean isVictory = false;
+	private int id = 0;
+	private static Block[][] block = new Block[ind_x][ind_y];
+	private static Image screen;
+	private static Dimension size = new Dimension(ind_x*Tile.getTileWidth() +10 ,ind_y*Tile.getTileHeight() +10);
+	private static boolean isVictory = false;
 	public Board()
 	{
 		
@@ -48,6 +48,11 @@ public class Board extends JFrame implements Runnable
 			}
 		}
 		generateLevel();
+	}
+	
+	public static boolean getIsVictory()
+	{
+		return isVictory;
 	}
 	//check if all the 8 pairs are open
 	public static void checkVictory()

@@ -1,63 +1,52 @@
-import java.awt.event.MouseEvent;
-import java.util.concurrent.locks.ReentrantLock;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 
-public class GuiThread extends Thread 
+public class Tile extends JLabel
 {
-	private int first_id;
-	private int second_id;
-	private MouseEvent e;
-	private Block lastBlock;
+
+	private static final long serialVersionUID = 1L;
+	private static int width = 150;
+	private static int height = 150;
+	private static int[] card = new int[10];
+		
+	public static BufferedImage[] tile = new BufferedImage[10];
 	
-	//get all the info from 
-	public GuiThread(int first_id,int second_id,MouseEvent e, Block lastBlock,int times)
+	public Tile()
 	{
-		this.first_id = first_id;
-		this.second_id = second_id;
-		this.e = e;
-		this.lastBlock = lastBlock;
+		try 
+		{
+			initCard();
+			SpriteSheet sheet = new SpriteSheet(ImageIO.read(new File("res/tile_set.png")));
+			for (int i = 0; i<10; i++)
+			Tile.tile[i] = sheet.crop(card[i],width,height);
+						
+		}
+		catch(Exception e)
+		{
+			
+		}
 	}
-	
-    public void run() 
-    {
-    	final ReentrantLock reentrantLock = new ReentrantLock();
-    	boolean flag = reentrantLock.tryLock();
-    	if (flag)
-    	{
-    		try 
-    		{
-    			//hold for 400 milliseconds so that the player could see the cards before they change
-    			GuiThread.sleep(400);
-			} 
-    		catch (InterruptedException e1) 
-    		{
-				e1.printStackTrace();
-			}
-    		//checks if the cards are equal and none of them was open already
-			if ((first_id == second_id) && (first_id != Tile.getCard(9)))
-			{
-				((Block )e.getComponent()).setId(Tile.getCard(9));
-				lastBlock.setId(Tile.getCard(9));
-				Block.addToCounter();
-				Board.checkVictory();
-			}
-			else
-			{
-				//cards are not equal, close both of them but keep their original id
-				int id = 0;
-				id = ((Block )e.getComponent()).getId();
-				((Block )e.getComponent()).setId(Tile.getCard(0));
-				((Block )e.getComponent()).render();
-				((Block )e.getComponent()).setId(id);
-				id = lastBlock.getId();
-				lastBlock.setId(Tile.getCard(0));
-				lastBlock.render();
-				lastBlock.setId(id);
-			}
-    	}
-    	//change times to be 1 again for next turn
-    	Block.setTimes(1);
-    	reentrantLock.unlock();
-    }
-
-
+	public static int getTileWidth()
+	{
+		return width;
+	}
+	public static int getTileHeight()
+	{
+		return height;
+	}
+	public static int getCard(int index)
+	{
+		return card[index];
+	}
+	public void setCard(int index,int value)
+	{
+		card[index] = value;
+	}
+	public void initCard()
+	{
+		for(int i = 0; i<10; i++)
+			setCard(i,i);
+	}	
 }

@@ -7,9 +7,8 @@ public class Tile extends JLabel
 {
 
 	private static final long serialVersionUID = 1L;
-	public static int width = 150;
-	public static int height = 150;
-	
+	private static int width = 150;
+	private static int height = 150;
 	private static int[] card = new int[10];
 		
 	public static BufferedImage[] tile = new BufferedImage[10];
@@ -28,6 +27,14 @@ public class Tile extends JLabel
 		{
 			
 		}
+	}
+	public static int getTileWidth()
+	{
+		return width;
+	}
+	public static int getTileHeight()
+	{
+		return height;
 	}
 	public static int getCard(int index)
 	{

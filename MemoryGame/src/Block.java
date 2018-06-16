@@ -55,7 +55,7 @@ public class Block extends JButton implements MouseListener,Runnable
 	
 	public void render()
 	{
-		if (!Board.isVictory && this.id != 9)
+		if (!Board.getIsVictory() && this.id != 9)
 		{
 			this.setIcon(new ImageIcon(Tile.tile[this.id]));
 		}
