@@ -12,7 +12,7 @@ public class Block extends JButton implements MouseListener,Runnable
 	private static int second_id = -1;
 	private static int counter = 0;
 	
-	public int id = 0;
+	private int id = 0;
 	private static Block lastBlock = new Block(first_id);
 	
 	public Block()
